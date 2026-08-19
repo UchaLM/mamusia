@@ -400,38 +400,35 @@
 
                 <!-- App Categories -->
                 <div
-                  class="bg-white px-2 py-2 lg:py-3 border-b border-gray-100 z-20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
-                  <div class="flex gap-2 overflow-x-auto no-scrollbar px-2 lg:px-3">
-                    <button
-                      class="bg-mamusia-900 text-white px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Cafetería</button>
-                    <button
-                      class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Helados</button>
-                    <button
-                      class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Pastelería</button>
-                    <button
-                      class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Fondues</button>
+                  class="bg-white px-2 py-2 lg:py-3 border-b border-gray-100 z-20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] shrink-0">
+                  <div class="flex gap-2 overflow-x-auto no-scrollbar px-2 lg:px-3" id="menu-filters-container">
+                    <button onclick="filterMenu('todos', this)"
+                      class="menu-filter-btn active bg-mamusia-900 text-white px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap transition-all shadow-sm">Todos</button>
+                    <button onclick="filterMenu('cafeteria', this)"
+                      class="menu-filter-btn bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap transition-all">Cafetería</button>
+                    <button onclick="filterMenu('helados', this)"
+                      class="menu-filter-btn bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap transition-all">Helados</button>
+                    <button onclick="filterMenu('pasteleria', this)"
+                      class="menu-filter-btn bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap transition-all">Pastelería</button>
+                    <button onclick="filterMenu('fondues', this)"
+                      class="menu-filter-btn bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap transition-all">Fondues</button>
                   </div>
                 </div>
 
                 <!-- App Menu Items -->
-                <div class="flex-1 overflow-y-auto custom-scroll p-3 lg:p-4 space-y-3 lg:space-y-4 pb-28 lg:pb-24"
-                  id="mobile-menu-items">
-                  <!-- Rendered via JS -->
-                </div>
-
-                <!-- Floating Cart (Bottom inside mockup) -->
-                <div
-                  class="absolute bottom-0 inset-x-0 bg-white border-t border-gray-200 p-3 lg:p-4 shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] z-30 transform translate-y-full transition-transform duration-300"
-                  id="mobile-cart-bar">
-                  <div class="flex items-center justify-between mb-2 lg:mb-3">
-                    <span class="text-[10px] lg:text-xs font-bold text-gray-500 uppercase tracking-wide"
-                      id="mobile-cart-count">0 ítems</span>
-                    <span class="text-base lg:text-lg font-black text-mamusia-900" id="mobile-cart-total">$0</span>
+                <div class="flex-1 overflow-y-auto custom-scroll bg-gray-50 flex flex-col relative">
+                  <div class="p-3 lg:p-4 space-y-4 lg:space-y-5" id="mobile-menu-items">
+                    <!-- Rendered via JS -->
                   </div>
-                  <button onclick="alert('Demo: Enviando a WhatsApp de la cocina...')"
-                    class="w-full bg-[#25D366] hover:bg-[#128c7e] text-white font-bold py-2.5 lg:py-3 rounded-xl text-xs lg:text-sm flex items-center justify-center gap-2 transition-colors">
-                    <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> Pedir por WhatsApp
-                  </button>
+                  
+                  <!-- Menu Footer -->
+                  <div class="mt-auto py-6 px-4 text-center border-t border-gray-200/50 bg-gray-100/50">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-mamusia-400 mb-3 shadow-sm border border-gray-100">
+                      <i data-lucide="bell-ring" class="w-5 h-5"></i>
+                    </div>
+                    <p class="text-[11px] lg:text-xs font-bold text-mamusia-800 uppercase tracking-widest">Atención en mesa por el personal de salón</p>
+                    <p class="text-[10px] text-gray-500 mt-1 font-medium">Por favor aguarde, seremos con usted en breve.</p>
+                  </div>
                 </div>
               </div>
 
@@ -587,82 +584,53 @@
     }
 
     // ==========================================
-    // LOGICA DEL MENÚ DIGITAL QR
+    // LOGICA DEL MENÚ DIGITAL QR (100% VISUAL)
     // ==========================================
     const MENU_ITEMS = [
-      { id: 'm1', name: 'Submarino Tradicional', desc: 'Leche caliente con la clásica barra de chocolate en rama Mamusia.', price: 4500, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Especialidad', tagColor: 'bg-mamusia-400 text-white' },
-      { id: 'm2', name: 'Capuchino Nevado', desc: 'Espresso, leche espumada, crema y lluvia de cacao.', price: 3800, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=400&h=300' },
-      { id: 'm3', name: 'Fondue de Chocolate', desc: 'Chocolate caliente con frutas de estación y bizcochuelo. Para compartir.', price: 12500, img: 'https://images.unsplash.com/photo-1614088924192-359196b0c265?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Para Compartir', tagColor: 'bg-yellow-500 text-white' },
-      { id: 'm4', name: 'Porción Torta Galesa', desc: 'Clásica torta galesa artesanal con frutos secos.', price: 5200, img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=400&h=300' },
-      { id: 'm5', name: 'Café Espresso', desc: 'Café de especialidad.', price: 2100, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400&h=300' },
+      { id: 'm1', name: 'Submarino Mamusia', category: 'cafeteria', desc: 'Leche caliente con la clásica barra de chocolate en rama Mamusia de 25g. Un viaje en el tiempo a 1972.', price: 4500, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Especialidad', tagColor: 'bg-mamusia-400 text-white' },
+      { id: 'm2', name: 'Capuchino Nevado', category: 'cafeteria', desc: 'Espresso, leche espumada, crema y lluvia de cacao amargo.', price: 3800, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=400&h=300' },
+      { id: 'm3', name: 'Fondue de Chocolate Patagónico', category: 'fondues', desc: 'Abundante chocolate fundido caliente servido con variedad de frutas frescas de estación y bizcochuelo artesanal.', price: 12500, img: 'https://images.unsplash.com/photo-1614088924192-359196b0c265?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Para 2 personas', tagColor: 'bg-yellow-500 text-white' },
+      { id: 'm4', name: 'Torta Galesa', category: 'pasteleria', desc: 'Auténtica receta de los colonos. Macerada en licor con pasas, nueces y almendras seleccionadas.', price: 5200, img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Patagónico', tagColor: 'bg-emerald-600 text-white' },
+      { id: 'm5', name: 'Copa Helada del Bosque', category: 'helados', desc: 'Tres bochas de helado artesanal, abundante salsa de frutos rojos de la zona y crema chantilly.', price: 6800, img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/helado2-ee9d2eb00b21a8c99e16987588147171-480-0.webp', tag: 'Sin TACC', tagColor: 'bg-blue-500 text-white' },
     ];
 
-    let menuCart = {};
+    function filterMenu(cat, btnElement) {
+      document.querySelectorAll('.menu-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-mamusia-900', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-gray-100', 'text-gray-600');
+      });
+      btnElement.classList.add('bg-mamusia-900', 'text-white', 'shadow-sm');
+      btnElement.classList.remove('bg-gray-100', 'text-gray-600');
+      
+      const filtered = cat === 'todos' ? MENU_ITEMS : MENU_ITEMS.filter(m => m.category === cat);
+      renderMobileMenu(filtered);
+    }
 
-    function renderMobileMenu() {
+    function renderMobileMenu(items = MENU_ITEMS) {
       const container = document.getElementById('mobile-menu-items');
-      container.innerHTML = MENU_ITEMS.map(item => {
-        const count = menuCart[item.id] || 0;
+      
+      if (items.length === 0) {
+        container.innerHTML = `<div class="text-center text-gray-400 py-10 font-medium text-xs lg:text-sm">No hay productos en esta categoría por el momento.</div>`;
+        return;
+      }
+      
+      container.innerHTML = items.map(item => {
         return `
-          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex">
-            <div class="w-24 lg:w-28 h-auto relative shrink-0">
+          <div class="bg-white rounded-2xl shadow-[0_2px_15px_-5px_rgba(0,0,0,0.05)] border border-gray-100/80 overflow-hidden flex flex-col">
+            <div class="w-full h-36 lg:h-48 relative">
                <img src="${item.img}" class="w-full h-full object-cover">
-               ${item.tag ? `<span class="absolute top-1.5 left-1.5 lg:top-2 lg:left-2 text-[7px] lg:text-[8px] font-bold px-1 py-0.5 rounded ${item.tagColor} shadow-sm uppercase tracking-wider">${item.tag}</span>` : ''}
+               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+               ${item.tag ? `<span class="absolute top-2 left-2 lg:top-3 lg:left-3 text-[9px] lg:text-[10px] font-black px-2 py-1 rounded-md ${item.tagColor} shadow-md uppercase tracking-wider border border-white/20">${item.tag}</span>` : ''}
+               <span class="absolute bottom-2 right-2 lg:bottom-3 lg:right-3 text-sm lg:text-base font-black text-white bg-black/40 backdrop-blur-md px-2 lg:px-3 py-1 rounded-lg border border-white/20">$${item.price.toLocaleString('es-AR')}</span>
             </div>
-            <div class="p-2 lg:p-3 flex-1 flex flex-col justify-between">
-              <div>
-                <h4 class="text-xs lg:text-sm font-bold text-mamusia-900 leading-tight mb-0.5 lg:mb-1">${item.name}</h4>
-                <p class="text-[9px] lg:text-[10px] text-gray-500 leading-snug line-clamp-2">${item.desc}</p>
-              </div>
-              <div class="flex items-end justify-between mt-1.5 lg:mt-2">
-                <span class="text-xs lg:text-sm font-black text-mamusia-900">$${item.price.toLocaleString('es-AR')}</span>
-                ${count > 0 ? `
-                  <div class="flex items-center gap-1.5 bg-gray-50 rounded-full border border-gray-200 p-0.5 lg:p-1">
-                    <button onclick="updateMenuCart('${item.id}', -1)" class="w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center text-mamusia-700 bg-white rounded-full shadow-sm font-bold text-[10px] lg:text-sm">-</button>
-                    <span class="text-[10px] lg:text-xs font-bold w-3 text-center">${count}</span>
-                    <button onclick="updateMenuCart('${item.id}', 1)" class="w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center text-white bg-mamusia-400 rounded-full shadow-sm font-bold text-[10px] lg:text-sm">+</button>
-                  </div>
-                ` : `
-                  <button onclick="updateMenuCart('${item.id}', 1)" class="w-6 h-6 lg:w-7 lg:h-7 rounded-full bg-mamusia-50 text-mamusia-400 flex items-center justify-center font-bold hover:bg-mamusia-400 hover:text-white transition-colors border border-mamusia-100">
-                    <i data-lucide="plus" class="w-3 h-3 lg:w-4 lg:h-4"></i>
-                  </button>
-                `}
-              </div>
+            <div class="p-3 lg:p-4">
+              <h4 class="text-sm lg:text-base font-bold text-mamusia-900 mb-1 lg:mb-1.5">${item.name}</h4>
+              <p class="text-[11px] lg:text-xs text-gray-500 leading-relaxed">${item.desc}</p>
             </div>
           </div>
         `;
       }).join('');
       lucide.createIcons();
-    }
-
-    function updateMenuCart(id, change) {
-      if (!menuCart[id]) menuCart[id] = 0;
-      menuCart[id] += change;
-      if (menuCart[id] <= 0) delete menuCart[id];
-
-      renderMobileMenu();
-      updateMobileCartBar();
-    }
-
-    function updateMobileCartBar() {
-      const bar = document.getElementById('mobile-cart-bar');
-      let totalQty = 0;
-      let totalPrice = 0;
-
-      Object.entries(menuCart).forEach(([id, qty]) => {
-        const item = MENU_ITEMS.find(m => m.id === id);
-        totalQty += qty;
-        totalPrice += item.price * qty;
-      });
-
-      document.getElementById('mobile-cart-count').innerText = `${totalQty} ítem${totalQty !== 1 ? 's' : ''}`;
-      document.getElementById('mobile-cart-total').innerText = `$${totalPrice.toLocaleString('es-AR')}`;
-
-      if (totalQty > 0) {
-        bar.classList.remove('translate-y-full');
-      } else {
-        bar.classList.add('translate-y-full');
-      }
     }
 
 
