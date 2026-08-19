@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mamusia - Chocolatería & Heladería | Armador Digital</title>
+  <title>Propuesta Comercial - Mamusia</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -16,295 +17,525 @@
         extend: {
           colors: {
             mamusia: {
-              50: '#fffcf9', // Off-white Background
-              100: '#f6ebec', // Soft pink/red bg
-              200: '#ecd9db', // Light pinkish
-              300: '#cc4845', // Lighter red
-              400: '#e40428', // Brand red
-              500: '#aa0015', // Darker brand red
-              600: '#880f1d', // Deep red
-              700: '#676465', // Dark gray for text
-              800: '#3d3a3b', // Darker text
-              900: '#1a1919'  // Almost black
-            },
-            choco: {
-              brown: '#5C341E',
-              dark: '#3D2012',
-              white: '#EBD2BF',
+              50: '#fffcf9',
+              100: '#f6ebec',
+              200: '#ecd9db',
+              300: '#cc4845',
+              400: '#8B0000',
+              500: '#6d0000',
+              600: '#540000',
+              700: '#4a4849',
+              800: '#2d2a2b',
+              900: '#1a1919'
             }
           },
           fontFamily: {
             sans: ['"Montserrat"', 'sans-serif'],
           },
           boxShadow: {
-            'soft': '0 10px 40px -10px rgba(228, 4, 40, 0.08)',
+            'soft': '0 10px 40px -10px rgba(139, 0, 0, 0.08)',
             'floating': '0 20px 50px -10px rgba(0, 0, 0, 0.1)',
-            'inner-tray': 'inset 0 4px 10px rgba(0, 0, 0, 0.05)',
-            'slot': 'inset 0 2px 5px rgba(0,0,0,0.1)'
+            'inner-tray': 'inset 0 4px 10px rgba(0, 0, 0, 0.03)',
+            'slot': 'inset 0 2px 5px rgba(0,0,0,0.05)'
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #fffcf9; color: #3d3a3b; }
+    body { background-color: #fffcf9; color: #1a1919; }
     .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scroll::-webkit-scrollbar-track { background: #f6ebec; border-radius: 4px; }
     .custom-scroll::-webkit-scrollbar-thumb { background: #ecd9db; border-radius: 4px; }
-    .custom-scroll::-webkit-scrollbar-thumb:hover { background: #cc4845; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: #8B0000; }
     
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
     .slot-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes popIn { 
       0% { transform: scale(0.5); opacity: 0; } 
       70% { transform: scale(1.1); }
       100% { transform: scale(1); opacity: 1; } 
     }
-
-    .tray-bg {
-      background-color: #fcf9f9;
-      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecd9db' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    /* Hide scrollbar for category filters but keep functionality */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-mamusia-400 selection:text-white">
+<body class="min-h-[100dvh] flex flex-col antialiased selection:bg-mamusia-400 selection:text-white">
 
   <!-- Top Announcement Bar -->
-  <div class="bg-mamusia-400 text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
+  <div class="bg-mamusia-400 text-white text-[10px] sm:text-xs py-2 px-4 text-center font-medium tracking-wide">
     <span class="flex items-center justify-center gap-2">
-      <i data-lucide="award" class="w-4 h-4 text-mamusia-100"></i>
+      <i data-lucide="award" class="w-3.5 h-3.5 text-mamusia-100 hidden sm:block"></i>
       Primera Chocolatería de San Martín de los Andes — Tradición Artesanal
     </span>
   </div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-mamusia-400 rounded flex items-center justify-center text-white font-bold text-xl">
-          M
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-mamusia-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:h-20 flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-0">
+      
+      <!-- Logo & Desktop Link -->
+      <div class="flex items-center justify-between w-full lg:w-auto">
+        <div class="flex items-center gap-3">
+          <img src="https://acdn-us.mitiendanube.com/stores/521/166/themes/common/logo-1009082844-1745518074-6a3136436d7763942a5b8f82e24e8d151745518074.png" alt="Mamusia Logo" class="h-10 lg:h-12 w-auto object-contain">
         </div>
-        <div>
-          <span class="text-xl sm:text-2xl font-bold tracking-tight text-mamusia-900 block leading-none">MAMUSIA</span>
-          <span class="text-[9px] tracking-widest uppercase text-mamusia-700 font-semibold">Chocolates & Helados</span>
-        </div>
+        <a href="https://www.mamusia.com.ar/" target="_blank" class="text-xs font-bold text-gray-500 hover:text-mamusia-400 transition-colors lg:hidden flex items-center gap-1"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Sitio Oficial</a>
       </div>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="#armador" class="text-mamusia-400 hover:text-mamusia-500 transition-colors flex items-center gap-1.5 font-bold">
-          <i data-lucide="package-plus" class="w-4 h-4"></i> Armá tu Caja
-        </a>
-        <a href="#carta-digital" class="text-gray-600 hover:text-mamusia-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="qr-code" class="w-4 h-4"></i> Carta Salón
-        </a>
+      <!-- Navigation Tabs (Mobile-First scrollable) -->
+      <nav class="flex w-full lg:w-auto overflow-x-auto no-scrollbar bg-gray-100 p-1 rounded-full border border-gray-200">
+        <button onclick="switchView('armador')" id="tab-armador" class="tab-btn active px-4 lg:px-6 py-2 rounded-full text-xs lg:text-sm font-bold transition-all bg-white shadow-sm text-mamusia-400 whitespace-nowrap flex-1 lg:flex-none text-center">
+          <i data-lucide="package-plus" class="w-4 h-4 inline-block mr-1"></i> 1. Armador Online
+        </button>
+        <button onclick="switchView('menu')" id="tab-menu" class="tab-btn px-4 lg:px-6 py-2 rounded-full text-xs lg:text-sm font-bold transition-all text-gray-500 hover:text-mamusia-800 whitespace-nowrap flex-1 lg:flex-none text-center">
+          <i data-lucide="smartphone" class="w-4 h-4 inline-block mr-1"></i> 2. Menú Digital QR
+        </button>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <a href="#armador" class="bg-mamusia-400 hover:bg-mamusia-500 text-white px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-2">
-          <span>Probar Prototipo</span>
-        </a>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="https://www.mamusia.com.ar/" target="_blank" class="text-xs font-bold text-gray-500 hover:text-mamusia-400 transition-colors flex items-center gap-1">Sitio Oficial <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative bg-mamusia-50 overflow-hidden border-b border-mamusia-100">
-    <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#e40428_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6 text-center lg:text-left">
-          <div class="inline-flex items-center gap-2 bg-white border border-mamusia-200 text-mamusia-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Prototipo Interactivo
-          </div>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-mamusia-900 tracking-tight">
-            Diseñá tu caja perfecta, <span class="text-mamusia-400">bombón por bombón.</span>
-          </h1>
-          <p class="text-mamusia-700 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-            Personalizá tu selección de chocolates artesanales. Elegí el tamaño, sumá tus sabores favoritos y nosotros te lo preparamos para retirar o enviar.
-          </p>
-          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-            <a href="#armador" class="bg-mamusia-400 hover:bg-mamusia-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-mamusia-400/20 transition-all flex items-center gap-2 text-sm sm:text-base hover:-translate-y-0.5">
-              <i data-lucide="box" class="w-5 h-5"></i> Empezar a Armar
-            </a>
-          </div>
-        </div>
-
-        <!-- Decorative Hero Graphic -->
-        <div class="hidden lg:flex justify-end relative">
-          <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-floating border border-mamusia-100 relative z-10 transform rotate-2">
-            <div class="flex justify-between items-center mb-6">
-              <div class="text-sm font-bold text-mamusia-900">Tu Selección</div>
-              <div class="text-xs font-bold text-mamusia-400 bg-mamusia-50 px-2 py-1 rounded">250g (Aprox. 12 un.)</div>
+  <!-- ==================== VIEW 1: ARMADOR ==================== -->
+  <div id="view-armador" class="view-section relative pb-28 lg:pb-0">
+    
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-mamusia-50 to-white overflow-hidden border-b border-mamusia-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-20 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div class="space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 bg-mamusia-50 border border-mamusia-200 text-mamusia-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Propuesta 1
             </div>
-            <div class="grid grid-cols-4 gap-3 tray-bg p-4 rounded-xl shadow-inner-tray border border-mamusia-100">
-              <!-- Mock slots -->
-              <div class="aspect-square bg-[#5C341E] rounded-full shadow-md flex items-center justify-center text-white text-xl">🍫</div>
-              <div class="aspect-square bg-[#3D2012] rounded-full shadow-md flex items-center justify-center text-white text-xl">🍒</div>
-              <div class="aspect-square bg-[#EBD2BF] rounded-full shadow-md flex items-center justify-center text-white text-xl">🌰</div>
-              <div class="aspect-square bg-white border-2 border-dashed border-mamusia-200 rounded-full flex items-center justify-center"></div>
-              <div class="aspect-square bg-white border-2 border-dashed border-mamusia-200 rounded-full flex items-center justify-center"></div>
-              <div class="aspect-square bg-white border-2 border-dashed border-mamusia-200 rounded-full flex items-center justify-center"></div>
-              <div class="aspect-square bg-white border-2 border-dashed border-mamusia-200 rounded-full flex items-center justify-center"></div>
-              <div class="aspect-square bg-white border-2 border-dashed border-mamusia-200 rounded-full flex items-center justify-center"></div>
-            </div>
-            <div class="mt-6 flex justify-between items-center">
-              <div class="h-2 bg-mamusia-100 rounded-full w-1/2 overflow-hidden"><div class="h-full bg-mamusia-400 w-[75%]"></div></div>
-              <div class="text-xs font-bold text-mamusia-700">Aprox 190g</div>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-mamusia-900 tracking-tight">
+              Diseñá tu caja perfecta, <span class="text-mamusia-400 block sm:inline">bombón por bombón.</span>
+            </h1>
+            <p class="text-mamusia-700 text-sm sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+              Una experiencia de compra interactiva para que los clientes armen su propia caja en la tienda online. Eligen tamaño, seleccionan sabores y completan el pedido visualmente.
+            </p>
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 lg:pt-4">
+              <a href="#armador-ui" class="bg-mamusia-400 hover:bg-mamusia-500 text-white font-bold px-6 lg:px-8 py-3 lg:py-4 rounded-full shadow-lg shadow-mamusia-400/20 transition-all flex items-center gap-2 text-sm sm:text-base hover:-translate-y-0.5">
+                <i data-lucide="box" class="w-5 h-5"></i> Probar Armador
+              </a>
             </div>
           </div>
-          <!-- Decorative blobs -->
-          <div class="absolute -top-10 -right-10 w-40 h-40 bg-mamusia-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70"></div>
-          <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-mamusia-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70"></div>
+
+          <!-- Decorative Hero Graphic (Desktop Only) -->
+          <div class="hidden lg:flex justify-end relative">
+            <div class="w-full max-w-lg relative z-10 transform hover:scale-[1.02] transition-transform duration-500">
+               <img src="https://acdn-us.mitiendanube.com/stores/521/166/products/cajadegustacion-ab-1c3563818b370fcde117149558471411-480-0.webp" class="w-full h-auto drop-shadow-2xl rounded-2xl object-cover" alt="Caja Degustación Mamusia">
+               <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 border border-mamusia-100">
+                   <div class="bg-mamusia-50 text-mamusia-400 p-3 rounded-full">
+                       <i data-lucide="award" class="w-6 h-6"></i>
+                   </div>
+                   <div>
+                       <p class="text-[10px] text-mamusia-700 font-bold uppercase tracking-wider">Calidad Premium</p>
+                       <p class="text-sm font-black text-mamusia-900">100% Artesanal</p>
+                   </div>
+               </div>
+            </div>
+            <div class="absolute -top-10 -right-10 w-72 h-72 bg-mamusia-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-10 w-72 h-72 bg-mamusia-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Interactive Builder Section -->
-  <main id="armador" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <h2 class="text-3xl font-extrabold text-mamusia-900 tracking-tight">Armador de Cajas</h2>
-      <p class="text-mamusia-700 mt-3 text-sm sm:text-base font-medium">
-        Paso 1: Elegí el tamaño. Paso 2: Seleccioná tus bombones.
-      </p>
-    </div>
-
-    <!-- Box Size Selection -->
-    <div class="mb-12">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto" id="box-size-container">
-        <!-- Rendered via JS -->
-      </div>
-    </div>
-
-    <div class="grid lg:grid-cols-12 gap-8 items-start pb-20">
-      
-      <!-- Selection Area (Left/Top) -->
-      <div class="lg:col-span-7 space-y-6">
-        <div class="flex items-center justify-between">
-          <h3 class="text-xl font-bold text-mamusia-900">Elegí tus Bombones</h3>
-          <button onclick="fillRandom()" class="text-xs font-bold text-mamusia-600 bg-white hover:bg-mamusia-50 px-4 py-2 rounded-full border border-mamusia-200 shadow-sm transition-all flex items-center gap-1.5 hover:border-mamusia-300">
-            <i data-lucide="wand-2" class="w-4 h-4"></i> Surtido Mágico
-          </button>
-        </div>
-
-        <!-- Filters -->
-        <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-gray-100" id="filters-container">
-          <button onclick="filterChocos('todos', this)" class="filter-btn active bg-mamusia-900 text-white px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition-all">Todos</button>
-          <button onclick="filterChocos('rellenos', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 hover:border-mamusia-200 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all">Rellenos & Frutas</button>
-          <button onclick="filterChocos('dulcedeleche', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 hover:border-mamusia-200 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all">Dulce de Leche</button>
-          <button onclick="filterChocos('frutossecos', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 hover:border-mamusia-200 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all">Frutos Secos</button>
-          <button onclick="filterChocos('licor', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 hover:border-mamusia-200 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all">Con Licor</button>
-        </div>
-
-        <!-- Chocolates Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scroll" id="chocolates-grid">
-          <!-- Rendered via JS -->
-        </div>
+    <!-- Interactive Builder Section -->
+    <main id="armador-ui" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      <div class="text-center max-w-2xl mx-auto mb-8 lg:mb-12">
+        <h2 class="text-2xl lg:text-3xl font-extrabold text-mamusia-900 tracking-tight">Armador de Cajas</h2>
+        <p class="text-mamusia-700 mt-2 lg:mt-3 text-xs sm:text-base font-medium">
+          Paso 1: Elegí el tamaño. Paso 2: Seleccioná tus chocolates.
+        </p>
       </div>
 
-      <!-- Box Summary Sticky Sidebar (Right/Bottom) -->
-      <div class="lg:col-span-5 relative z-20">
-        <div class="bg-white rounded-3xl p-6 lg:p-8 shadow-soft border border-mamusia-100 sticky top-24 flex flex-col h-full max-h-[85vh]">
+      <!-- Box Size Selection -->
+      <div class="mb-10 lg:mb-14">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 max-w-5xl mx-auto" id="box-size-container"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start lg:pb-20">
+        
+        <!-- Selection Area -->
+        <div class="lg:col-span-7 space-y-4 lg:space-y-6">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg lg:text-xl font-bold text-mamusia-900">Elegí tus Favoritos</h3>
+            <button onclick="fillRandom()" class="text-[10px] lg:text-xs font-bold text-mamusia-600 bg-white hover:bg-mamusia-50 px-3 py-2 lg:px-4 lg:py-2.5 rounded-full border border-mamusia-200 shadow-sm transition-all flex items-center gap-1 lg:gap-1.5 hover:border-mamusia-300">
+              <i data-lucide="wand-2" class="w-3 h-3 lg:w-4 lg:h-4"></i> Mágico
+            </button>
+          </div>
+
+          <!-- Filters -->
+          <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-gray-100 -mx-4 px-4 lg:mx-0 lg:px-0" id="filters-container">
+            <button onclick="filterChocos('todos', this)" class="filter-btn active bg-mamusia-900 text-white px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition-all">Todos</button>
+            <button onclick="filterChocos('rellenos', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all">Rellenos</button>
+            <button onclick="filterChocos('dulcedeleche', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all">Dulce de Leche</button>
+            <button onclick="filterChocos('frutossecos', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all">Frutos Secos</button>
+            <button onclick="filterChocos('licor', this)" class="filter-btn bg-white text-mamusia-700 border border-gray-200 hover:bg-mamusia-50 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all">Especiales</button>
+          </div>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 max-h-[60vh] lg:max-h-[650px] overflow-y-auto pr-1 lg:pr-2 custom-scroll" id="chocolates-grid"></div>
+        </div>
+
+        <!-- Box Summary Sidebar (Desktop sticky, Mobile naturally flows to bottom) -->
+        <div class="lg:col-span-5 relative z-20 mt-6 lg:mt-0" id="resumen-caja">
+          <div class="bg-white rounded-3xl p-5 lg:p-8 shadow-sm lg:shadow-floating border border-gray-100 lg:border-mamusia-100 lg:sticky lg:top-24 flex flex-col h-full lg:max-h-[85vh]">
+            <div class="flex items-center justify-between pb-4 lg:pb-5 border-b border-gray-100">
+              <div>
+                <span class="text-[10px] uppercase tracking-widest text-mamusia-400 font-bold mb-1 block">Tu Selección</span>
+                <h4 class="text-lg lg:text-xl font-extrabold text-mamusia-900" id="selected-box-name">Caja Clásica</h4>
+              </div>
+              <button onclick="resetBox()" class="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-gray-50 text-gray-400 hover:text-mamusia-400 hover:bg-mamusia-50 flex items-center justify-center transition-colors shadow-sm" title="Vaciar caja">
+                <i data-lucide="trash-2" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+              </button>
+            </div>
+
+            <!-- Progress -->
+            <div class="py-5 lg:py-6">
+              <div class="flex justify-between text-xs lg:text-sm font-bold mb-2 lg:mb-3">
+                <span class="text-mamusia-700">Capacidad Estimada</span>
+                <span class="text-mamusia-900 bg-mamusia-50 px-2 py-1 rounded-md" id="capacity-text">0g / 250g</span>
+              </div>
+              <div class="w-full h-2 lg:h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                <div id="progress-bar" class="h-full bg-mamusia-400 transition-all duration-500 ease-out rounded-full" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- Visual Tray -->
+            <div class="bg-gray-50 rounded-2xl p-3 lg:p-4 shadow-inner-tray border border-gray-100 mb-4 lg:mb-6 relative shrink-0">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-3 lg:px-4 py-1 rounded-full border border-mamusia-100 text-[9px] lg:text-[10px] font-bold text-mamusia-700 shadow-sm uppercase tracking-wider">Vista Previa</div>
+              <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 lg:gap-3 max-h-[140px] lg:max-h-[160px] overflow-y-auto p-2 custom-scroll mt-3" id="box-visual-slots"></div>
+            </div>
+
+            <!-- List Summary -->
+            <div class="flex-1 min-h-0 flex flex-col border-t border-gray-100 pt-4 lg:pt-5">
+              <div class="text-[10px] lg:text-xs font-bold text-mamusia-400 uppercase tracking-wider mb-3 lg:mb-4 flex items-center gap-1.5 lg:gap-2">
+                <i data-lucide="list-checks" class="w-3.5 h-3.5 lg:w-4 lg:h-4"></i> Detalle del Surtido:
+              </div>
+              <div id="selection-summary-list" class="space-y-2 lg:space-y-3 text-xs lg:text-sm text-mamusia-800 overflow-y-auto custom-scroll flex-1 pr-1 lg:pr-2 pb-4 font-medium max-h-48 lg:max-h-full"></div>
+            </div>
+
+            <!-- Total & Action -->
+            <div class="border-t border-gray-100 pt-5 lg:pt-6 mt-auto space-y-4 lg:space-y-5 shrink-0 bg-white">
+              <div class="flex items-end justify-between bg-mamusia-50 p-3 lg:p-4 rounded-xl border border-mamusia-100">
+                <span class="text-xs lg:text-sm font-bold text-mamusia-700">Total a Pagar:</span>
+                <span class="text-xl lg:text-2xl font-black text-mamusia-900" id="total-price">$0</span>
+              </div>
+              <button id="btn-complete-order" onclick="openOrderModal()" disabled class="w-full bg-gray-100 text-gray-400 cursor-not-allowed font-bold py-3 lg:py-4 px-4 rounded-xl text-sm lg:text-base transition-all flex items-center justify-center gap-2 border border-gray-200 shadow-sm">
+                <span>Agregá chocolates para continuar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Mobile Sticky Checkout Bar -->
+    <div class="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 p-4 z-40 shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] transform transition-transform" id="mobile-armador-bar">
+      <div class="flex items-center justify-between mb-2">
+         <span class="text-[10px] font-bold text-mamusia-700 uppercase tracking-wider" id="mobile-capacity-text">0g / 250g</span>
+         <span class="text-base font-black text-mamusia-900" id="mobile-total-price">$0</span>
+      </div>
+      <div class="w-full h-1.5 bg-gray-100 rounded-full mb-3 overflow-hidden">
+         <div id="mobile-progress-bar" class="h-full bg-mamusia-400 transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <button onclick="document.getElementById('resumen-caja').scrollIntoView({behavior: 'smooth'})" class="w-full bg-mamusia-900 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm">
+         <i data-lucide="shopping-bag" class="w-4 h-4"></i> Ver Resumen y Pagar
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== VIEW 2: MENÚ QR ==================== -->
+  <div id="view-menu" class="view-section hidden flex flex-col h-full bg-gray-50">
+    
+    <!-- Explainer Intro (Desktop/Tablet mostly) -->
+    <section class="relative bg-mamusia-900 text-white overflow-hidden lg:block">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 relative z-10 text-center lg:text-left">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 bg-mamusia-50/10 border border-white/20 text-white px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-xs font-bold uppercase tracking-wider">
+              <i data-lucide="qrcode" class="w-3.5 h-3.5"></i> Propuesta 2
+            </div>
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
+              Menú Digital Interactivo.
+            </h1>
+            <p class="text-gray-300 text-xs sm:text-base max-w-xl mx-auto lg:mx-0 font-medium">
+              Demo de cómo se ve el menú escaneado desde el celular en el salón. Diseñado 100% Mobile-First.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="flex-1 border-t border-gray-200">
+      <div class="max-w-7xl mx-auto lg:px-8 lg:py-12">
+        <div class="grid lg:grid-cols-2 gap-0 lg:gap-16 items-start">
           
-          <div class="flex items-center justify-between pb-5 border-b border-gray-100">
+          <!-- Column 1: Smartphone Mockup (Mobile: Full width, no borders) -->
+          <div class="flex justify-center w-full bg-black lg:bg-transparent">
+            <div class="w-full h-[100dvh] lg:w-[375px] lg:h-[750px] lg:rounded-[40px] lg:border-[12px] border-[#1a1919] bg-white overflow-hidden relative lg:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] flex flex-col">
+              
+              <!-- iPhone Notch (Desktop only) -->
+              <div class="hidden lg:block absolute top-0 left-1/2 -translate-x-1/2 w-[150px] h-[25px] bg-[#1a1919] rounded-b-[20px] z-50"></div>
+              
+              <!-- Mobile App UI -->
+              <div class="flex-1 bg-gray-50 flex flex-col lg:pt-8 relative overflow-hidden">
+                
+                <!-- App Header -->
+                <div class="px-4 lg:px-5 pb-3 pt-4 lg:pt-3 bg-white border-b border-gray-100 flex items-center justify-between shadow-sm z-20">
+                  <div>
+                    <img src="https://acdn-us.mitiendanube.com/stores/521/166/themes/common/logo-1009082844-1745518074-6a3136436d7763942a5b8f82e24e8d151745518074.png" alt="Mamusia" class="h-6 lg:h-8 w-auto">
+                  </div>
+                  <div class="bg-mamusia-50 text-mamusia-400 font-bold px-2 py-1 lg:px-3 lg:py-1 rounded-full text-[9px] lg:text-[10px] border border-mamusia-100 flex items-center gap-1">
+                    <i data-lucide="map-pin" class="w-3 h-3"></i> Mesa 4
+                  </div>
+                </div>
+
+                <!-- App Categories -->
+                <div class="bg-white px-2 py-2 lg:py-3 border-b border-gray-100 z-20 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+                  <div class="flex gap-2 overflow-x-auto no-scrollbar px-2 lg:px-3">
+                    <button class="bg-mamusia-900 text-white px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Cafetería</button>
+                    <button class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Helados</button>
+                    <button class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Pastelería</button>
+                    <button class="bg-gray-100 text-gray-600 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full text-[10px] lg:text-[11px] font-bold whitespace-nowrap">Fondues</button>
+                  </div>
+                </div>
+
+                <!-- App Menu Items -->
+                <div class="flex-1 overflow-y-auto custom-scroll p-3 lg:p-4 space-y-3 lg:space-y-4 pb-28 lg:pb-24" id="mobile-menu-items">
+                  <!-- Rendered via JS -->
+                </div>
+
+                <!-- Floating Cart (Bottom inside mockup) -->
+                <div class="absolute bottom-0 inset-x-0 bg-white border-t border-gray-200 p-3 lg:p-4 shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] z-30 transform translate-y-full transition-transform duration-300" id="mobile-cart-bar">
+                  <div class="flex items-center justify-between mb-2 lg:mb-3">
+                    <span class="text-[10px] lg:text-xs font-bold text-gray-500 uppercase tracking-wide" id="mobile-cart-count">0 ítems</span>
+                    <span class="text-base lg:text-lg font-black text-mamusia-900" id="mobile-cart-total">$0</span>
+                  </div>
+                  <button onclick="alert('Demo: Enviando a WhatsApp de la cocina...')" class="w-full bg-[#25D366] hover:bg-[#128c7e] text-white font-bold py-2.5 lg:py-3 rounded-xl text-xs lg:text-sm flex items-center justify-center gap-2 transition-colors">
+                    <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> Pedir por WhatsApp
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Column 2: Table Tent Mockup & Explainer (Stacks below on mobile) -->
+          <div class="px-4 py-12 lg:px-0 lg:py-10 space-y-8 bg-gray-50">
             <div>
-              <span class="text-[10px] uppercase tracking-widest text-mamusia-400 font-bold mb-1 block">Tu Selección</span>
-              <h4 class="text-xl font-extrabold text-mamusia-900" id="selected-box-name">Caja Clásica</h4>
+              <h3 class="text-xl lg:text-2xl font-extrabold text-mamusia-900 mb-2 lg:mb-4">El QR en la mesa del cliente</h3>
+              <p class="text-mamusia-700 font-medium text-sm lg:text-base">
+                Se coloca un soporte acrílico o de madera en cada mesa. El cliente simplemente abre la cámara, escanea, y accede al instante. Sin apps, sin demoras.
+              </p>
             </div>
-            <button onclick="resetBox()" class="w-8 h-8 rounded-full bg-gray-50 text-gray-400 hover:text-mamusia-400 hover:bg-mamusia-50 flex items-center justify-center transition-colors" title="Vaciar caja">
-              <i data-lucide="trash-2" class="w-4 h-4"></i>
-            </button>
-          </div>
 
-          <!-- Progress -->
-          <div class="py-5">
-            <div class="flex justify-between text-sm font-bold mb-2">
-              <span class="text-mamusia-700">Capacidad</span>
-              <span class="text-mamusia-900" id="capacity-text">0g / 250g</span>
+            <!-- Table Tent Mockup -->
+            <div class="relative bg-white p-6 lg:p-8 rounded-3xl shadow-xl border border-gray-200 max-w-xs lg:max-w-sm mx-auto lg:mx-0 transform rotate-1 hover:rotate-0 transition-transform">
+              <div class="text-center mb-5 lg:mb-6">
+                <img src="https://acdn-us.mitiendanube.com/stores/521/166/themes/common/logo-1009082844-1745518074-6a3136436d7763942a5b8f82e24e8d151745518074.png" class="h-8 lg:h-10 mx-auto mb-2 opacity-80 filter grayscale" alt="Logo">
+                <p class="text-[9px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-widest">Escaneá para pedir</p>
+              </div>
+              <div class="bg-white p-3 lg:p-4 rounded-xl border-2 border-gray-100 shadow-inner flex justify-center mb-3 lg:mb-4">
+                <div id="qrcode"></div>
+              </div>
+              <div class="text-center text-mamusia-400 font-black text-lg lg:text-xl">Mesa 4</div>
+              <div class="absolute -right-3 -bottom-3 lg:-right-4 lg:-bottom-4 w-10 h-10 lg:w-12 lg:h-12 bg-mamusia-400 rounded-full flex items-center justify-center shadow-lg transform -rotate-12">
+                <i data-lucide="smartphone" class="text-white w-5 h-5 lg:w-6 lg:h-6"></i>
+              </div>
             </div>
-            <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden shadow-inner">
-              <div id="progress-bar" class="h-full bg-mamusia-400 transition-all duration-500 ease-out rounded-full" style="width: 0%"></div>
-            </div>
-          </div>
 
-          <!-- Visual Tray -->
-          <div class="tray-bg rounded-2xl p-4 shadow-inner-tray border border-mamusia-100 mb-5 relative shrink-0">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full border border-mamusia-100 text-[10px] font-bold text-mamusia-700 shadow-sm">Vista Superior</div>
-            <div class="grid grid-cols-4 sm:grid-cols-6 gap-2.5 max-h-[160px] overflow-y-auto p-2 custom-scroll mt-2" id="box-visual-slots">
-              <!-- Rendered via JS -->
+            <div class="space-y-4 pt-4">
+              <div class="flex gap-3 lg:gap-4">
+                <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-mamusia-50 flex items-center justify-center text-mamusia-400 shrink-0">
+                  <i data-lucide="refresh-cw" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm lg:text-base font-bold text-mamusia-900">Precios actualizados al instante</h4>
+                  <p class="text-xs lg:text-sm text-mamusia-700 mt-1">Olvidate de tachar cartas o imprimir stickers nuevos. Cambiá un precio y se refleja en los celulares en tiempo real.</p>
+                </div>
+              </div>
+              <div class="flex gap-3 lg:gap-4">
+                <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-mamusia-50 flex items-center justify-center text-mamusia-400 shrink-0">
+                  <i data-lucide="languages" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm lg:text-base font-bold text-mamusia-900">Múltiples Idiomas (Turismo)</h4>
+                  <p class="text-xs lg:text-sm text-mamusia-700 mt-1">El turista puede leer los ingredientes y descripciones en inglés o portugués, mejorando su experiencia en la ciudad.</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- List Summary -->
-          <div class="flex-1 min-h-0 flex flex-col border-t border-gray-100 pt-4">
-            <div class="text-xs font-bold text-mamusia-400 uppercase tracking-wider mb-3">Detalle:</div>
-            <div id="selection-summary-list" class="space-y-2 text-sm text-mamusia-800 overflow-y-auto custom-scroll flex-1 pr-2 pb-4 font-medium">
-              <!-- Rendered via JS -->
-            </div>
           </div>
-
-          <!-- Total & Action -->
-          <div class="border-t border-gray-100 pt-5 mt-auto space-y-4 shrink-0 bg-white">
-            <div class="flex items-end justify-between">
-              <span class="text-sm font-bold text-mamusia-700">Total:</span>
-              <span class="text-2xl font-black text-mamusia-900" id="total-price">$0</span>
-            </div>
-            
-            <button id="btn-complete-order" onclick="openOrderModal()" disabled class="w-full bg-gray-100 text-gray-400 cursor-not-allowed font-bold py-4 px-4 rounded-xl text-sm transition-all flex items-center justify-center gap-2 border border-gray-200 shadow-sm">
-              <span>Seleccioná para continuar</span>
-            </button>
-          </div>
-
         </div>
       </div>
-    </div>
-  </main>
+    </section>
+  </div>
+
+  <!-- ==================== COMMON ELEMENTS ==================== -->
 
   <!-- Toast Container -->
-  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+  <div id="toast-container" class="fixed bottom-24 lg:bottom-6 right-4 lg:right-6 z-50 flex flex-col gap-2 lg:gap-3 pointer-events-none"></div>
 
-  <!-- Order Modal -->
-  <div id="order-modal" class="fixed inset-0 z-50 bg-mamusia-900/60 backdrop-blur-sm hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-floating transform scale-95 transition-transform duration-300" id="order-modal-content">
-      <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-mamusia-50 rounded-full flex items-center justify-center text-mamusia-400">
-            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+  <!-- Order Modal (Armador) -->
+  <div id="order-modal" class="fixed inset-0 z-[60] bg-mamusia-900/60 backdrop-blur-sm hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl transform scale-95 transition-transform duration-300 border border-mamusia-100 flex flex-col max-h-[90vh]" id="order-modal-content">
+      <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4 shrink-0">
+        <div class="flex items-center gap-3 lg:gap-4">
+          <div class="w-10 h-10 lg:w-12 lg:h-12 bg-mamusia-50 rounded-full flex items-center justify-center text-mamusia-400 border border-mamusia-100">
+            <i data-lucide="shopping-bag" class="w-5 h-5 lg:w-6 lg:h-6"></i>
           </div>
-          <h3 class="text-xl font-bold text-mamusia-900">Finalizar Pedido</h3>
+          <div>
+            <h3 class="text-lg lg:text-xl font-bold text-mamusia-900 leading-tight">Finalizar Pedido</h3>
+            <p class="text-[10px] lg:text-xs text-mamusia-700 mt-0.5">Vía WhatsApp Oficial</p>
+          </div>
         </div>
-        <button onclick="closeOrderModal()" class="w-8 h-8 rounded-full bg-gray-50 text-gray-500 hover:text-mamusia-900 hover:bg-gray-100 flex items-center justify-center transition-colors">
-          <i data-lucide="x" class="w-4 h-4"></i>
+        <button onclick="closeOrderModal()" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-gray-50 text-gray-500 hover:text-mamusia-900 hover:bg-gray-100 flex items-center justify-center transition-colors">
+          <i data-lucide="x" class="w-4 h-4 lg:w-5 lg:h-5"></i>
         </button>
       </div>
 
-      <div class="space-y-4">
-        <div class="bg-mamusia-50 p-4 rounded-xl border border-mamusia-100">
-          <div class="flex justify-between font-bold text-mamusia-900 mb-2">
-            <span id="modal-box-title">Caja</span>
-            <span id="modal-box-price">$0</span>
+      <div class="space-y-4 overflow-y-auto custom-scroll pr-1 flex-1">
+        <div class="bg-mamusia-50 p-4 lg:p-5 rounded-2xl border border-mamusia-100">
+          <div class="flex justify-between items-center font-bold text-mamusia-900 mb-2 pb-2 border-b border-mamusia-200/50">
+            <span id="modal-box-title" class="text-base lg:text-lg">Caja</span>
+            <span id="modal-box-price" class="text-base lg:text-lg text-mamusia-400">$0</span>
           </div>
-          <ul id="modal-items-list" class="space-y-1 text-xs font-medium text-mamusia-700 max-h-32 overflow-y-auto custom-scroll pr-2"></ul>
+          <ul id="modal-items-list" class="space-y-2 text-xs lg:text-sm font-medium text-mamusia-700"></ul>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-mamusia-700 mb-2 flex items-center gap-1.5"><i data-lucide="pen-tool" class="w-3.5 h-3.5"></i> Agregar dedicatoria (Opcional)</label>
-          <textarea id="gift-message" rows="2" placeholder="Escribí un mensaje especial..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm text-mamusia-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-mamusia-400 focus:border-transparent transition-all resize-none"></textarea>
+          <label class="block text-xs lg:text-sm font-bold text-mamusia-700 mb-1.5 flex items-center gap-1.5"><i data-lucide="pen-tool" class="w-3 h-3 lg:w-4 lg:h-4 text-mamusia-400"></i> Dedicatoria (Opcional)</label>
+          <textarea id="gift-message" rows="2" placeholder="Escribí un mensaje especial..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs lg:text-sm text-mamusia-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-mamusia-400 focus:border-transparent transition-all resize-none shadow-sm"></textarea>
         </div>
-
-        <button onclick="sendToWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30 transition-all hover:-translate-y-0.5">
-          <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i> 
-          <span>Enviar por WhatsApp</span>
+      </div>
+      
+      <div class="pt-4 shrink-0 border-t border-gray-100 mt-2">
+        <button onclick="sendToWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3.5 lg:py-4 px-4 rounded-xl flex items-center justify-center gap-2 lg:gap-3 shadow-lg shadow-[#25D366]/30 transition-all hover:-translate-y-0.5 text-sm lg:text-base">
+          <i data-lucide="message-circle" class="w-5 h-5 lg:w-6 lg:h-6 fill-current"></i> 
+          <span>Enviar pedido a Mamusia</span>
         </button>
       </div>
     </div>
   </div>
 
   <script>
-    // --- Data ---
+    // --- View Switcher ---
+    function switchView(viewId) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`view-${viewId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'shadow-sm', 'text-mamusia-400');
+        btn.classList.add('text-gray-500');
+      });
+      const activeTab = document.getElementById(`tab-${viewId}`);
+      activeTab.classList.remove('text-gray-500');
+      activeTab.classList.add('bg-white', 'shadow-sm', 'text-mamusia-400');
+      
+      if (viewId === 'menu' && !document.getElementById('qrcode').hasChildNodes()) {
+          // Adjust QR size for mobile if needed, though 120 is safe
+          const isMobile = window.innerWidth < 1024;
+          new QRCode(document.getElementById("qrcode"), {
+              text: "https://menu.mamusia.com.ar/mesa4",
+              width: isMobile ? 120 : 160,
+              height: isMobile ? 120 : 160,
+              colorDark : "#1a1919",
+              colorLight : "#ffffff",
+              correctLevel : QRCode.CorrectLevel.H
+          });
+      }
+    }
+
+    // ==========================================
+    // LOGICA DEL MENÚ DIGITAL QR
+    // ==========================================
+    const MENU_ITEMS = [
+      { id: 'm1', name: 'Submarino Tradicional', desc: 'Leche caliente con la clásica barra de chocolate en rama Mamusia.', price: 4500, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Especialidad', tagColor: 'bg-mamusia-400 text-white' },
+      { id: 'm2', name: 'Capuchino Nevado', desc: 'Espresso, leche espumada, crema y lluvia de cacao.', price: 3800, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=400&h=300' },
+      { id: 'm3', name: 'Fondue de Chocolate', desc: 'Chocolate caliente con frutas de estación y bizcochuelo. Para compartir.', price: 12500, img: 'https://images.unsplash.com/photo-1614088924192-359196b0c265?auto=format&fit=crop&q=80&w=400&h=300', tag: 'Para Compartir', tagColor: 'bg-yellow-500 text-white' },
+      { id: 'm4', name: 'Porción Torta Galesa', desc: 'Clásica torta galesa artesanal con frutos secos.', price: 5200, img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=400&h=300' },
+      { id: 'm5', name: 'Café Espresso', desc: 'Café de especialidad.', price: 2100, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400&h=300' },
+    ];
+
+    let menuCart = {};
+
+    function renderMobileMenu() {
+      const container = document.getElementById('mobile-menu-items');
+      container.innerHTML = MENU_ITEMS.map(item => {
+        const count = menuCart[item.id] || 0;
+        return `
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex">
+            <div class="w-24 lg:w-28 h-auto relative shrink-0">
+               <img src="${item.img}" class="w-full h-full object-cover">
+               ${item.tag ? `<span class="absolute top-1.5 left-1.5 lg:top-2 lg:left-2 text-[7px] lg:text-[8px] font-bold px-1 py-0.5 rounded ${item.tagColor} shadow-sm uppercase tracking-wider">${item.tag}</span>` : ''}
+            </div>
+            <div class="p-2 lg:p-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 class="text-xs lg:text-sm font-bold text-mamusia-900 leading-tight mb-0.5 lg:mb-1">${item.name}</h4>
+                <p class="text-[9px] lg:text-[10px] text-gray-500 leading-snug line-clamp-2">${item.desc}</p>
+              </div>
+              <div class="flex items-end justify-between mt-1.5 lg:mt-2">
+                <span class="text-xs lg:text-sm font-black text-mamusia-900">$${item.price.toLocaleString('es-AR')}</span>
+                ${count > 0 ? `
+                  <div class="flex items-center gap-1.5 bg-gray-50 rounded-full border border-gray-200 p-0.5 lg:p-1">
+                    <button onclick="updateMenuCart('${item.id}', -1)" class="w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center text-mamusia-700 bg-white rounded-full shadow-sm font-bold text-[10px] lg:text-sm">-</button>
+                    <span class="text-[10px] lg:text-xs font-bold w-3 text-center">${count}</span>
+                    <button onclick="updateMenuCart('${item.id}', 1)" class="w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center text-white bg-mamusia-400 rounded-full shadow-sm font-bold text-[10px] lg:text-sm">+</button>
+                  </div>
+                ` : `
+                  <button onclick="updateMenuCart('${item.id}', 1)" class="w-6 h-6 lg:w-7 lg:h-7 rounded-full bg-mamusia-50 text-mamusia-400 flex items-center justify-center font-bold hover:bg-mamusia-400 hover:text-white transition-colors border border-mamusia-100">
+                    <i data-lucide="plus" class="w-3 h-3 lg:w-4 lg:h-4"></i>
+                  </button>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function updateMenuCart(id, change) {
+      if(!menuCart[id]) menuCart[id] = 0;
+      menuCart[id] += change;
+      if(menuCart[id] <= 0) delete menuCart[id];
+      
+      renderMobileMenu();
+      updateMobileCartBar();
+    }
+
+    function updateMobileCartBar() {
+      const bar = document.getElementById('mobile-cart-bar');
+      let totalQty = 0;
+      let totalPrice = 0;
+      
+      Object.entries(menuCart).forEach(([id, qty]) => {
+        const item = MENU_ITEMS.find(m => m.id === id);
+        totalQty += qty;
+        totalPrice += item.price * qty;
+      });
+
+      document.getElementById('mobile-cart-count').innerText = `${totalQty} ítem${totalQty !== 1 ? 's' : ''}`;
+      document.getElementById('mobile-cart-total').innerText = `$${totalPrice.toLocaleString('es-AR')}`;
+
+      if(totalQty > 0) {
+        bar.classList.remove('translate-y-full');
+      } else {
+        bar.classList.add('translate-y-full');
+      }
+    }
+
+
+    // ==========================================
+    // LOGICA DEL ARMADOR DE CAJAS
+    // ==========================================
     const BOX_SIZES = [
       { id: 'degustacion', name: 'Degustación', avgCount: 6, weightGrams: 125, price: 9800, badge: 'Express' },
       { id: 'clasica', name: 'Caja Clásica', avgCount: 12, weightGrams: 250, price: 18500, badge: 'Favorita', isDefault: true },
@@ -313,45 +544,40 @@
     ];
 
     const CHOCOLATES = [
-      { id: 'c1', name: 'Dulce de Leche', category: 'dulcedeleche', desc: 'Corazón cremoso bañado en leche.', icon: '🍫', color: '#5C341E', weight: 20 },
-      { id: 'c2', name: 'Frambuesa', category: 'rellenos', desc: 'Frambuesas confitadas amargo 60%.', icon: '🫐', color: '#880f1d', weight: 18 },
-      { id: 'c3', name: 'Licor de Cassis', category: 'licor', desc: 'Ganache con licor de cassis.', icon: '🍇', color: '#3D2012', weight: 15 },
-      { id: 'c4', name: 'Marroc Patagónico', category: 'rellenos', desc: 'Praliné de maní y choco blanco.', icon: '🥜', color: '#cc4845', weight: 22 },
-      { id: 'c5', name: 'Rama c/ Almendras', category: 'frutossecos', desc: 'Rama con almendras tostadas.', icon: '🪵', color: '#5C341E', weight: 18 },
-      { id: 'c6', name: 'Blanco & Avellanas', category: 'frutossecos', desc: 'Blanco relleno de avellanas.', icon: '🌰', color: '#ecd9db', weight: 20 },
-      { id: 'c7', name: 'Disco Nuez', category: 'frutossecos', desc: 'Medallón con media nuez entera.', icon: '⛰️', color: '#3D2012', weight: 28 },
-      { id: 'c8', name: 'Frutos 70%', category: 'rellenos', desc: 'Reducción de moras extra amargo.', icon: '🍒', color: '#1a1919', weight: 18 },
+      { id: 'c1', name: 'Dulce de Leche Blanco', category: 'dulcedeleche', desc: 'Corazón bañado en chocolate blanco.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/bombonesdulcedlecheblanco-dec42f557ae4cf5ce016988619368860-480-0.webp', color: '#ecd9db', weight: 20 },
+      { id: 'c2', name: 'Surtido Clásico', category: 'rellenos', desc: 'Selección de bombones variados.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/bombonessurtidosblanco-a6edaccad90c43dc3416988524199156-480-0.webp', color: '#880f1d', weight: 18 },
+      { id: 'c3', name: 'Crocante Almendras', category: 'frutossecos', desc: 'Crocante con almendras seleccionadas.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/crocante500g-blanco-bf45fbd68071b9d0ac169875267653111-0c92470560352436bc16987526878571-480-0.jpg', color: '#ecd9db', weight: 25 },
+      { id: 'c4', name: 'Rama Mixto', category: 'rellenos', desc: 'Tradicional chocolate en rama mixto.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/ramamixto350cfondoblanco-ced618cb5468cd7e0b16987920449479-480-0.webp', color: '#8B0000', weight: 15 },
+      { id: 'c5', name: 'Selección Especial', category: 'licor', desc: 'Surtido especial con toques de licor.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/chocosurtido1kablanco-c0c34b8908d0c3a06b16987743270524-480-0.webp', color: '#880f1d', weight: 20 },
+      { id: 'c6', name: 'Alfajor Chocolate', category: 'especiales', desc: 'Relleno de abundante dulce de leche.', img: 'https://acdn-us.mitiendanube.com/stores/521/166/products/alfachx6edit1-cd30b0905c6ad2da2616791726947973-480-0.webp', color: '#3D2012', weight: 45 },
     ];
 
-    // Tolerancia en gramos para completar o sobrepasar la caja.
     const TOLERANCE_UNDER = 15; 
     const TOLERANCE_OVER = 15;
 
-    // --- State ---
     let currentBox = BOX_SIZES.find(b => b.isDefault) || BOX_SIZES[1];
     let selectedChocolates = {};
 
-    // --- Initialization ---
     window.addEventListener('DOMContentLoaded', () => {
       renderBoxSizes();
       renderChocolatesGrid(CHOCOLATES);
       updateBoxState();
+      renderMobileMenu();
       lucide.createIcons();
     });
 
-    // --- UI Renderers ---
     function renderBoxSizes() {
       const container = document.getElementById('box-size-container');
       container.innerHTML = BOX_SIZES.map(box => {
         const isSelected = currentBox.id === box.id;
         const weightLabel = box.weightGrams >= 1000 ? `${box.weightGrams/1000}kg` : `${box.weightGrams}g`;
         return `
-          <div onclick="selectBoxSize('${box.id}')" class="cursor-pointer rounded-2xl p-4 sm:p-5 border-2 transition-all relative overflow-hidden flex flex-col items-center justify-center text-center ${isSelected ? 'bg-white border-mamusia-400 shadow-md transform -translate-y-1' : 'bg-white border-gray-100 hover:border-mamusia-200 hover:shadow-sm'}">
-            ${isSelected ? '<div class="absolute top-0 inset-x-0 h-1 bg-mamusia-400"></div>' : ''}
-            ${box.badge ? `<span class="absolute top-2 right-2 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full ${isSelected ? 'bg-mamusia-100 text-mamusia-500' : 'bg-gray-100 text-gray-500'}">${box.badge}</span>` : ''}
-            <div class="text-sm sm:text-base font-extrabold text-mamusia-900 mt-2">${box.name}</div>
-            <div class="text-xs font-medium text-gray-500 mt-1">${weightLabel} <span class="opacity-50">|</span> ~${box.avgCount} un.</div>
-            <div class="text-sm font-black mt-3 ${isSelected ? 'text-mamusia-400' : 'text-mamusia-800'}">$${box.price.toLocaleString('es-AR')}</div>
+          <div onclick="selectBoxSize('${box.id}')" class="cursor-pointer rounded-2xl p-3 lg:p-5 border-2 transition-all relative overflow-hidden flex flex-col items-center justify-center text-center ${isSelected ? 'bg-white border-mamusia-400 shadow-lg shadow-mamusia-400/10 transform -translate-y-1' : 'bg-white border-gray-100 hover:border-mamusia-200 hover:shadow-sm'}">
+            ${isSelected ? '<div class="absolute top-0 inset-x-0 h-1 lg:h-1.5 bg-mamusia-400"></div>' : ''}
+            ${box.badge ? `<span class="absolute top-2 right-2 lg:top-3 lg:right-3 text-[7px] lg:text-[9px] font-extrabold uppercase px-1.5 lg:px-2 py-0.5 rounded-full ${isSelected ? 'bg-mamusia-50 text-mamusia-500 border border-mamusia-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}">${box.badge}</span>` : ''}
+            <div class="text-xs lg:text-base font-extrabold text-mamusia-900 mt-2">${box.name}</div>
+            <div class="text-[9px] lg:text-xs font-bold text-gray-400 mt-0.5 lg:mt-1">${weightLabel} <span class="opacity-50 mx-0.5 lg:mx-1">|</span> ~${box.avgCount} un.</div>
+            <div class="text-[10px] lg:text-sm font-black mt-1.5 lg:mt-3 bg-gray-50 px-2 lg:px-3 py-1 rounded-full ${isSelected ? 'text-mamusia-400 bg-mamusia-50' : 'text-mamusia-800'}">$${box.price.toLocaleString('es-AR')}</div>
           </div>
         `;
       }).join('');
@@ -364,35 +590,32 @@
         const isSelected = count > 0;
         
         return `
-          <div class="bg-white border rounded-2xl p-3 sm:p-4 transition-all duration-200 flex items-center justify-between gap-3 ${isSelected ? 'border-mamusia-300 shadow-sm ring-1 ring-mamusia-100' : 'border-gray-100 hover:border-mamusia-200 hover:shadow-sm'}">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-inner shrink-0" style="background-color: ${c.color}15; border: 1px solid ${c.color}25;">
-                ${c.icon}
+          <div class="bg-white border rounded-xl lg:rounded-2xl p-2.5 lg:p-4 transition-all duration-200 flex items-center justify-between gap-2 lg:gap-3 ${isSelected ? 'border-mamusia-300 shadow-md ring-1 ring-mamusia-100 bg-mamusia-50/30' : 'border-gray-100 hover:border-mamusia-200 hover:shadow-sm'}">
+            <div class="flex items-center gap-2 lg:gap-3 w-full">
+              <div class="w-10 h-10 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center bg-white shadow-sm shrink-0 border border-gray-100 overflow-hidden relative">
+                <img src="${c.img}" alt="${c.name}" class="w-full h-full object-cover">
               </div>
-              <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                  <h4 class="text-sm font-bold text-mamusia-900 leading-tight">${c.name}</h4>
-                  <span class="text-[10px] font-bold text-mamusia-400 bg-mamusia-50 px-1.5 py-0.5 rounded">${c.weight}g</span>
-                </div>
-                <p class="text-[10px] text-gray-500 leading-tight mt-1 line-clamp-2 pr-2">${c.desc}</p>
+              <div class="flex flex-col flex-1 pr-1 lg:pr-2">
+                <h4 class="text-xs lg:text-sm font-bold text-mamusia-900 leading-tight lg:mb-1">${c.name}</h4>
+                <p class="hidden lg:block text-[10px] text-gray-500 leading-tight line-clamp-2">${c.desc}</p>
+                <span class="text-[8px] lg:text-[9px] font-extrabold text-mamusia-400 uppercase tracking-widest mt-0.5 lg:mt-1.5">${c.weight}g</span>
               </div>
             </div>
             
-            <div class="flex items-center gap-2 bg-gray-50 rounded-full p-1 border border-gray-100 shrink-0">
-              <button onclick="decrementChoco('${c.id}')" class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${count === 0 ? 'text-gray-300 cursor-default' : 'bg-white text-mamusia-700 shadow-sm hover:text-mamusia-400'}">-</button>
-              <span class="w-4 text-center text-sm font-black text-mamusia-900" id="count-${c.id}">${count}</span>
-              <button onclick="incrementChoco('${c.id}', '${c.name}')" class="w-7 h-7 rounded-full bg-mamusia-400 text-white shadow-sm flex items-center justify-center font-bold text-sm hover:bg-mamusia-500 transition-colors">+</button>
+            <div class="flex items-center gap-1 lg:gap-2 bg-white rounded-full p-1 border shadow-sm shrink-0 ${isSelected ? 'border-mamusia-200' : 'border-gray-100'}">
+              <button onclick="decrementChoco('${c.id}')" class="w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors ${count === 0 ? 'text-gray-300 cursor-default' : 'bg-gray-50 text-mamusia-700 hover:text-mamusia-400 hover:bg-mamusia-50'}">-</button>
+              <span class="w-4 lg:w-5 text-center text-xs lg:text-sm font-black text-mamusia-900" id="count-${c.id}">${count}</span>
+              <button onclick="incrementChoco('${c.id}')" class="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-mamusia-400 text-white shadow-sm flex items-center justify-center font-bold text-sm lg:text-lg hover:bg-mamusia-500 transition-colors">+</button>
             </div>
           </div>
         `;
       }).join('');
     }
 
-    // --- Logic ---
     function selectBoxSize(boxId) {
       const newBox = BOX_SIZES.find(b => b.id === boxId);
       if (newBox.weightGrams < getTotalSelectedWeight()) {
-        showToast('Debes vaciar la caja para elegir un tamaño menor.', 'error');
+        showToast('Vaciá la caja para elegir un tamaño menor.', 'error');
         return;
       }
       currentBox = newBox;
@@ -400,10 +623,6 @@
       updateBoxState();
     }
 
-    function getTotalSelectedCount() {
-      return Object.values(selectedChocolates).reduce((a, b) => a + b, 0);
-    }
-    
     function getTotalSelectedWeight() {
       return Object.entries(selectedChocolates).reduce((total, [id, count]) => {
         const choco = CHOCOLATES.find(c => c.id === id);
@@ -411,7 +630,7 @@
       }, 0);
     }
 
-    function incrementChoco(chocoId, name) {
+    function incrementChoco(chocoId) {
       const choco = CHOCOLATES.find(c => c.id === chocoId);
       const totalWeight = getTotalSelectedWeight();
       
@@ -419,26 +638,27 @@
         showToast('¡La caja ya está llena!', 'error');
         return;
       }
-      
       if (totalWeight + choco.weight > currentBox.weightGrams + TOLERANCE_OVER) {
-        showToast(`Este bombón de ${choco.weight}g sobrepasa la capacidad restante.`, 'error');
+        showToast(`Este bombón de ${choco.weight}g supera el límite.`, 'error');
         return;
       }
       
       selectedChocolates[chocoId] = (selectedChocolates[chocoId] || 0) + 1;
       updateBoxState();
       
-      // Update individual counter immediately for feel
       const el = document.getElementById(`count-${chocoId}`);
-      if(el) el.innerText = selectedChocolates[chocoId];
-      
-      // Re-render grid item style slightly
-      const itemContainer = el.closest('.bg-white');
-      itemContainer.classList.add('border-mamusia-300', 'shadow-sm', 'ring-1', 'ring-mamusia-100');
-      itemContainer.classList.remove('border-gray-100');
-      
-      // Enable minus button
-      itemContainer.querySelector('button:first-child').className = "w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors bg-white text-mamusia-700 shadow-sm hover:text-mamusia-400";
+      if(el) {
+          el.innerText = selectedChocolates[chocoId];
+          const itemContainer = el.closest('.bg-white');
+          itemContainer.classList.add('border-mamusia-300', 'shadow-md', 'ring-1', 'ring-mamusia-100', 'bg-mamusia-50/30');
+          itemContainer.classList.remove('border-gray-100');
+          const btnContainer = itemContainer.querySelector('.flex.items-center.bg-white'); // the button container
+          if(btnContainer) {
+              btnContainer.classList.add('border-mamusia-200');
+              btnContainer.classList.remove('border-gray-100');
+          }
+          itemContainer.querySelector('button:first-child').className = "w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors bg-gray-50 text-mamusia-700 hover:text-mamusia-400 hover:bg-mamusia-50";
+      }
     }
 
     function decrementChoco(chocoId) {
@@ -452,12 +672,16 @@
       if(el) {
         const count = selectedChocolates[chocoId] || 0;
         el.innerText = count;
-        
         if (count === 0) {
            const itemContainer = el.closest('.bg-white');
-           itemContainer.classList.remove('border-mamusia-300', 'shadow-sm', 'ring-1', 'ring-mamusia-100');
+           itemContainer.classList.remove('border-mamusia-300', 'shadow-md', 'ring-1', 'ring-mamusia-100', 'bg-mamusia-50/30');
            itemContainer.classList.add('border-gray-100');
-           itemContainer.querySelector('button:first-child').className = "w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors text-gray-300 cursor-default";
+           const btnContainer = itemContainer.querySelector('.flex.items-center.bg-white');
+           if(btnContainer) {
+               btnContainer.classList.remove('border-mamusia-200');
+               btnContainer.classList.add('border-gray-100');
+           }
+           itemContainer.querySelector('button:first-child').className = "w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors text-gray-300 cursor-default";
         }
       }
     }
@@ -468,33 +692,50 @@
       const weightLabel = currentBox.weightGrams >= 1000 ? `${currentBox.weightGrams/1000}kg` : `${currentBox.weightGrams}g`;
 
       document.getElementById('selected-box-name').innerText = currentBox.name;
-      document.getElementById('capacity-text').innerText = `${totalWeight}g / ${weightLabel}`;
       
-      const bar = document.getElementById('progress-bar');
-      bar.style.width = `${pct}%`;
+      const capText = `${totalWeight}g / ${weightLabel}`;
+      document.getElementById('capacity-text').innerText = capText;
+      document.getElementById('mobile-capacity-text').innerText = capText;
+      
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+      document.getElementById('mobile-progress-bar').style.width = `${pct}%`;
       
       const isFullEnough = totalWeight >= (currentBox.weightGrams - TOLERANCE_UNDER);
       
       if(isFullEnough) {
-        bar.classList.add('bg-[#25D366]'); // WhatsApp green when full
-        bar.classList.remove('bg-mamusia-400');
+        document.getElementById('progress-bar').classList.add('bg-[#25D366]');
+        document.getElementById('progress-bar').classList.remove('bg-mamusia-400');
+        document.getElementById('mobile-progress-bar').classList.add('bg-[#25D366]');
+        document.getElementById('mobile-progress-bar').classList.remove('bg-mamusia-400');
       } else {
-        bar.classList.add('bg-mamusia-400');
-        bar.classList.remove('bg-[#25D366]');
+        document.getElementById('progress-bar').classList.add('bg-mamusia-400');
+        document.getElementById('progress-bar').classList.remove('bg-[#25D366]');
+        document.getElementById('mobile-progress-bar').classList.add('bg-mamusia-400');
+        document.getElementById('mobile-progress-bar').classList.remove('bg-[#25D366]');
       }
 
-      document.getElementById('total-price').innerText = `$${currentBox.price.toLocaleString('es-AR')}`;
+      const priceText = `$${currentBox.price.toLocaleString('es-AR')}`;
+      document.getElementById('total-price').innerText = priceText;
+      document.getElementById('mobile-total-price').innerText = priceText;
 
       const btn = document.getElementById('btn-complete-order');
       if (isFullEnough) {
         btn.disabled = false;
-        btn.className = "w-full bg-mamusia-400 text-white font-bold py-4 px-4 rounded-xl text-sm shadow-lg shadow-mamusia-400/30 flex items-center justify-center gap-2 cursor-pointer hover:bg-mamusia-500 hover:-translate-y-0.5 transform transition-all";
-        btn.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5"></i> <span>Finalizar y Pedir</span>`;
+        btn.className = "w-full bg-mamusia-400 text-white font-bold py-3 lg:py-4 px-4 rounded-xl text-sm lg:text-base shadow-lg shadow-mamusia-400/30 flex items-center justify-center gap-2 cursor-pointer hover:bg-mamusia-500 hover:-translate-y-0.5 transform transition-all";
+        btn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span>Finalizar y Pedir</span>`;
       } else {
         btn.disabled = true;
-        btn.className = "w-full bg-gray-50 text-gray-400 cursor-not-allowed font-bold py-4 px-4 rounded-xl text-sm transition-all flex items-center justify-center gap-2 border border-gray-200";
+        btn.className = "w-full bg-gray-50 text-gray-400 cursor-not-allowed font-bold py-3 lg:py-4 px-4 rounded-xl text-sm lg:text-base transition-all flex items-center justify-center gap-2 border border-gray-200 shadow-sm";
         const diff = currentBox.weightGrams - totalWeight;
         btn.innerHTML = `<span>Faltan aprox. ${diff}g</span>`;
+      }
+
+      // Hide/Show Mobile Sticky Bar based on if we added anything (optional, currently it's always shown when in Armador, but maybe better to only show if weight > 0 or just always show so they see the progress).
+      const mobileBar = document.getElementById('mobile-armador-bar');
+      if(document.getElementById('view-armador').classList.contains('hidden')) {
+          mobileBar.classList.add('translate-y-full');
+      } else {
+          mobileBar.classList.remove('translate-y-full');
       }
 
       renderVisualSlots();
@@ -511,23 +752,18 @@
         for (let i = 0; i < count; i++) currentItems.push(item);
       });
 
-      // Calculate how many empty slots to show based on average count
       const expectedCount = Math.max(currentBox.avgCount, currentItems.length);
       const emptySlots = Math.max(0, expectedCount - currentItems.length);
 
       for (let i = 0; i < currentItems.length; i++) {
         const c = currentItems[i];
         html += `
-          <div class="aspect-square rounded-full shadow-slot bg-white p-0.5 flex items-center justify-center">
-             <div class="w-full h-full rounded-full flex items-center justify-center text-sm shadow-sm slot-pop relative group" style="background-color: ${c.color}; color: white;" title="${c.name} (${c.weight}g)">
-               ${c.icon}
-               <span class="absolute -top-1 -right-1 bg-white text-mamusia-900 text-[8px] font-bold px-1 rounded-full shadow-sm">${c.weight}g</span>
-             </div>
+          <div class="aspect-square rounded-full shadow-slot bg-white flex items-center justify-center overflow-hidden relative group border border-gray-100">
+             <img src="${c.img}" alt="${c.name}" class="w-full h-full object-cover slot-pop">
           </div>`;
       }
-      
       for (let i = 0; i < emptySlots; i++) {
-        html += `<div class="aspect-square rounded-full shadow-slot bg-black/5 flex items-center justify-center"></div>`;
+        html += `<div class="aspect-square rounded-full shadow-slot bg-black/5 flex items-center justify-center border border-black/5"></div>`;
       }
       container.innerHTML = html;
     }
@@ -536,23 +772,28 @@
       const container = document.getElementById('selection-summary-list');
       const entries = Object.entries(selectedChocolates);
       if (entries.length === 0) {
-        container.innerHTML = `<div class="text-gray-400 italic text-xs text-center py-4">Tu caja está vacía.<br>Agregá bombones desde la lista.</div>`;
+        container.innerHTML = `
+            <div class="text-gray-400 italic text-xs lg:text-sm text-center py-4 lg:py-6 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                Tu caja está vacía.<br>Agregá productos desde el catálogo.
+            </div>`;
         return;
       }
       container.innerHTML = entries.map(([id, count]) => {
         const choco = CHOCOLATES.find(c => c.id === id);
         return `
-          <div class="flex items-center justify-between py-1 border-b border-gray-50 last:border-0">
-            <span class="flex items-center gap-2 text-xs text-mamusia-800">
-               <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style="background-color: ${choco.color}20">${choco.icon}</span> 
-               ${choco.name} <span class="text-gray-400 font-normal">(${choco.weight}g)</span>
+          <div class="flex items-center justify-between py-1.5 lg:py-2 border-b border-gray-50 lg:border-gray-100 last:border-0">
+            <span class="flex items-center gap-2 lg:gap-3 text-xs lg:text-sm text-mamusia-800 font-bold">
+               <div class="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-white border border-gray-100 shadow-sm overflow-hidden flex-shrink-0">
+                   <img src="${choco.img}" alt="" class="w-full h-full object-cover">
+               </div>
+               <span class="truncate max-w-[120px] sm:max-w-xs">${choco.name}</span> 
+               <span class="hidden sm:inline text-gray-400 font-medium text-[10px] lg:text-xs">(${choco.weight}g)</span>
             </span>
-            <span class="font-black text-mamusia-400 bg-mamusia-50 px-2 py-0.5 rounded-md text-xs">x${count}</span>
+            <span class="font-black text-mamusia-400 bg-mamusia-50 px-2 lg:px-3 py-0.5 lg:py-1 rounded-md lg:rounded-lg text-[10px] lg:text-sm border border-mamusia-100/50">x${count}</span>
           </div>`;
       }).join('');
     }
 
-    // --- Utils & Interactivity ---
     function filterChocos(cat, btnElement) {
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('bg-mamusia-900', 'text-white');
@@ -560,7 +801,6 @@
       });
       btnElement.classList.add('bg-mamusia-900', 'text-white');
       btnElement.classList.remove('bg-white', 'text-mamusia-700', 'border-gray-200');
-      
       const filtered = cat === 'todos' ? CHOCOLATES : CHOCOLATES.filter(c => c.category === cat);
       renderChocolatesGrid(filtered);
     }
@@ -568,20 +808,14 @@
     function fillRandom() {
       selectedChocolates = {};
       let currentWeight = 0;
-      
-      // Shuffle chocolates array for randomness
       let shuffled = [...CHOCOLATES].sort(() => 0.5 - Math.random());
       
       while (currentWeight < currentBox.weightGrams - TOLERANCE_UNDER) {
-        // Pick random chocolate
         const randomChoco = shuffled[Math.floor(Math.random() * shuffled.length)];
-        
-        // Ensure adding it doesn't vastly exceed limits
         if (currentWeight + randomChoco.weight <= currentBox.weightGrams + TOLERANCE_OVER) {
           selectedChocolates[randomChoco.id] = (selectedChocolates[randomChoco.id] || 0) + 1;
           currentWeight += randomChoco.weight;
         } else {
-          // If we can't fit this one, try to find a lighter one, else break
           const lighterChoco = CHOCOLATES.find(c => currentWeight + c.weight <= currentBox.weightGrams + TOLERANCE_OVER);
           if (lighterChoco) {
             selectedChocolates[lighterChoco.id] = (selectedChocolates[lighterChoco.id] || 0) + 1;
@@ -592,26 +826,34 @@
         }
       }
       
-      // Update DOM
       CHOCOLATES.forEach(c => {
         const el = document.getElementById(`count-${c.id}`);
         if (el) {
             const count = selectedChocolates[c.id] || 0;
             el.innerText = count;
             const container = el.closest('.bg-white');
+            const btnContainer = container.querySelector('.flex.items-center.bg-white');
             if(count > 0) {
-                container.classList.add('border-mamusia-300', 'shadow-sm', 'ring-1', 'ring-mamusia-100');
+                container.classList.add('border-mamusia-300', 'shadow-md', 'ring-1', 'ring-mamusia-100', 'bg-mamusia-50/30');
                 container.classList.remove('border-gray-100');
-                container.querySelector('button:first-child').className = "w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors bg-white text-mamusia-700 shadow-sm hover:text-mamusia-400";
+                if(btnContainer) {
+                    btnContainer.classList.add('border-mamusia-200');
+                    btnContainer.classList.remove('border-gray-100');
+                }
+                container.querySelector('button:first-child').className = "w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors bg-gray-50 text-mamusia-700 hover:text-mamusia-400 hover:bg-mamusia-50";
             } else {
-                container.classList.remove('border-mamusia-300', 'shadow-sm', 'ring-1', 'ring-mamusia-100');
+                container.classList.remove('border-mamusia-300', 'shadow-md', 'ring-1', 'ring-mamusia-100', 'bg-mamusia-50/30');
                 container.classList.add('border-gray-100');
-                container.querySelector('button:first-child').className = "w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors text-gray-300 cursor-default";
+                if(btnContainer) {
+                    btnContainer.classList.remove('border-mamusia-200');
+                    btnContainer.classList.add('border-gray-100');
+                }
+                container.querySelector('button:first-child').className = "w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors text-gray-300 cursor-default";
             }
         }
       });
       updateBoxState();
-      showToast('Surtido mágico completado', 'success');
+      showToast('Surtido completado', 'success');
     }
 
     function resetBox() {
@@ -621,16 +863,20 @@
         if (el) {
             el.innerText = 0;
             const container = el.closest('.bg-white');
-            container.classList.remove('border-mamusia-300', 'shadow-sm', 'ring-1', 'ring-mamusia-100');
+            const btnContainer = container.querySelector('.flex.items-center.bg-white');
+            container.classList.remove('border-mamusia-300', 'shadow-md', 'ring-1', 'ring-mamusia-100', 'bg-mamusia-50/30');
             container.classList.add('border-gray-100');
-            container.querySelector('button:first-child').className = "w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm transition-colors text-gray-300 cursor-default";
+            if(btnContainer) {
+                btnContainer.classList.remove('border-mamusia-200');
+                btnContainer.classList.add('border-gray-100');
+            }
+            container.querySelector('button:first-child').className = "w-6 h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center font-bold text-sm lg:text-lg transition-colors text-gray-300 cursor-default";
         }
       });
       updateBoxState();
       showToast('Caja vaciada');
     }
 
-    // Toast Notification System
     function showToast(message, type = 'success') {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
@@ -642,21 +888,18 @@
       const iconUrl = isSuccess ? 'check-circle' : 'alert-circle';
       const iconColor = isSuccess ? 'text-mamusia-400' : 'text-white';
 
-      toast.className = `transform transition-all duration-300 translate-y-10 opacity-0 ${bgColor} ${borderColor} shadow-floating rounded-xl px-4 py-3 text-sm font-bold ${textColor} flex items-center gap-3 pointer-events-auto`;
-      toast.innerHTML = `<i data-lucide="${iconUrl}" class="w-5 h-5 ${iconColor}"></i> <span>${message}</span>`;
+      toast.className = `transform transition-all duration-300 translate-y-10 opacity-0 ${bgColor} ${borderColor} shadow-floating rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 text-xs lg:text-sm font-bold ${textColor} flex items-center gap-2 lg:gap-3 pointer-events-auto border border-gray-100`;
+      toast.innerHTML = `<i data-lucide="${iconUrl}" class="w-4 h-4 lg:w-5 lg:h-5 ${iconColor}"></i> <span>${message}</span>`;
       
       container.appendChild(toast);
       lucide.createIcons();
       
-      // Animate in
       requestAnimationFrame(() => {
         setTimeout(() => {
           toast.classList.remove('translate-y-10', 'opacity-0');
           toast.classList.add('translate-y-0', 'opacity-100');
         }, 10);
       });
-      
-      // Remove
       setTimeout(() => {
         toast.classList.remove('translate-y-0', 'opacity-100');
         toast.classList.add('translate-y-10', 'opacity-0');
@@ -664,24 +907,28 @@
       }, 2500);
     }
 
-    // --- Modal & Checkout ---
     function openOrderModal() {
       const modal = document.getElementById('order-modal');
       const content = document.getElementById('order-modal-content');
-      
       const weightLabel = currentBox.weightGrams >= 1000 ? `${currentBox.weightGrams/1000}kg` : `${currentBox.weightGrams}g`;
       document.getElementById('modal-box-title').innerText = `${currentBox.name} (${weightLabel})`;
       document.getElementById('modal-box-price').innerText = `$${currentBox.price.toLocaleString('es-AR')}`;
       
       document.getElementById('modal-items-list').innerHTML = Object.entries(selectedChocolates).map(([id, count]) => {
         const choco = CHOCOLATES.find(c => c.id === id);
-        return `<li class="flex justify-between py-1 border-b border-mamusia-100/50 last:border-0"><span class="font-bold text-mamusia-900">${choco.name}</span> <span>x${count}</span></li>`;
+        return `
+          <li class="flex justify-between items-center py-2 border-b border-mamusia-200/50 last:border-0">
+             <div class="flex items-center gap-2 lg:gap-3">
+                 <img src="${choco.img}" class="w-6 h-6 lg:w-8 lg:h-8 rounded-full object-cover border border-mamusia-100">
+                 <span class="font-bold text-mamusia-900">${choco.name}</span>
+             </div>
+             <span class="bg-white px-1.5 py-0.5 lg:px-2 lg:py-1 rounded text-[10px] lg:text-xs font-black shadow-sm text-mamusia-400">x${count}</span>
+          </li>`;
       }).join('');
       
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       
-      // Animate modal in
       requestAnimationFrame(() => {
         modal.classList.remove('opacity-0');
         modal.classList.add('opacity-100');
@@ -710,12 +957,9 @@
         const choco = CHOCOLATES.find(c => c.id === id);
         return `• ${choco.name} (x${count})`;
       }).join('%0A');
-      
       const giftMsg = document.getElementById('gift-message').value.trim();
       let text = `¡Hola Mamusia! Quería encargar una *${currentBox.name}* de *${getTotalSelectedWeight()}g* ($${currentBox.price.toLocaleString('es-AR')}) con la siguiente selección:%0A%0A${itemsText}`;
-      
       if (giftMsg) text += `%0A%0A*Mensaje / Dedicatoria:* "${giftMsg}"`;
-      
       window.open(`https://wa.me/542972417020?text=${text}`, '_blank');
       closeOrderModal();
     }
